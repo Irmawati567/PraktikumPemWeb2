@@ -4,8 +4,6 @@ require_once 'sidebar.php';
 
 require '../dbkoneksi.php';
 if (isset($_POST["submit"])) {
-    $_kode = $_POST['kode'];
-    $_id = $_POST['id'];
     $_nama = $_POST['nama'];
     $_gender = $_POST['gender'];
     $_tmp_lahir = $_POST['tmp_lahir'];
@@ -13,9 +11,9 @@ if (isset($_POST["submit"])) {
     $_kategori = $_POST['kategori'];
     $_telpon = $_POST['telpon'];
     $_alamat = $_POST['alamat'];
-    $_unit_kerja_id = $_POST['unit_kerja-id'];
-    $data = [$_kode, $_id, $_nama, $_gender, $_tmp_lahir, $_tgl_lahir, $_kategori, $_telpon, $_alamat, $_unit_kerja_id];
-    $sql = "INSERT INTO dokter (kode, id, nama, gender, tmp_lahir, tgl_lahirl, kategori, telpon, alamat, unit_kerja_id) VALUES (?,? ,? ,? ,? ,? ,? ,? ,? ,? ,?)";
+    $_unit_kerja_id = $_POST['unit_kerja_id'];
+    $data = [$_nama, $_gender, $_tmp_lahir, $_tgl_lahir, $_kategori, $_telpon, $_alamat, $_unit_kerja_id];
+    $sql = "INSERT INTO dokter ( nama, gender, tmp_lahir, tgl_lahir, kategori, telpon, alamat, unit_kerja_id) VALUES (? ,? ,? ,? ,? ,? ,? ,?)";
     $stmt = $dbh->prepare($sql);
     $stmt->execute($data);
     echo "<script>window.location.href = 'index.php';</script>";
@@ -59,18 +57,6 @@ if (isset($_POST["submit"])) {
                             <h2 class="text-center">Form Dokter</h2>
                             <form action="add.php" method="POST">
                                 <div class="form-group row">
-                                    <label for="kode" class="col-4 col-form-label"> Kode </label>
-                                    <div class="col-8">
-                                        <input id="kode" name="kode" type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="id" class="col-4 col-form-label">ID</label>
-                                    <div class="col-8">
-                                        <input id="id" name="id" type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
                                     <label for="nama" class="col-4 col-form-label">Nama</label>
                                     <div class="col-8">
                                     <input id="nama" name="nama" type="text" class="form-control">
@@ -94,7 +80,7 @@ if (isset($_POST["submit"])) {
                                 <div class="form-group row">
                                     <label for="tgl_lahir" class="col-4 col-form-label">Tanggal lahir</label>
                                     <div class="col-8">
-                                        <input id="tgl_lahir" name="tgl_lahir" type="text" class="form-control">
+                                        <input id="tgl_lahir" name="tgl_lahir" type="date" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -110,21 +96,34 @@ if (isset($_POST["submit"])) {
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="kelurahan_id" class="col-4 col-form-label">Alamat</label>
+                                    <label for="alamat" class="col-4 col-form-label">Alamat</label>
                                     <div class="col-8">
-                                    <input id="kelurahan_id" name="kelurahan_id" type="text" class="form-control">
+                                    <input id="alamat" name="alamat" type="text" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="unit_kerja_id" class="col-4 col-form-label">Unit_Kerja_id</label>
+                                    <label for="unit_kerja_id" class="col-4 col-form-label">Unit Kerja ID</label>
                                     <div class="col-8">
-                                    <input id="unit_kerja_id" name="unit_kerja_id" type="text" class="form-control">
+                                        <?php
+                                        $sqljenis = "SELECT * FROM unit_kerja";
+                                        $rsjenis = $dbh->query($sqljenis);
+                                        ?>
+                                        <select id="unit_kerja_id" name="unit_kerja_id" class="custom-select">
+                                            <?php
+                                            foreach ($rsjenis as $rowjenis) {
+                                            ?>
+                                                <option value="<?= $rowjenis['id'] ?>"><?= $rowjenis['nama'] ?></option>
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <div class="offset-4 col-8">
                                         <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+                                        
                                     </div>
                                 </div>
                             </form>

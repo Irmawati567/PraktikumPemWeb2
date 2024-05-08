@@ -37,7 +37,7 @@ require_once 'sidebar.php';
                             </div>
                         </div>
                         <div class="card-body">
-                            Nama - NIM
+                            Siti Irmawati - 0110123110
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer">
