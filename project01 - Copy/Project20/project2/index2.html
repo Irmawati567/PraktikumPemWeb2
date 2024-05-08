@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Daftar Peserta Seminar</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+    th {
+        background-color: #dddddd;
+    }
+</style>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Data contoh
+    const pegawaiData = [
+      { no: '1', Nim: '', nama: 'Muhammad Arun ', Seminar: '', Waktu: '', Ruangan: '', Peserta: '', aktif: true },
+      { no: '2', Nim: '', nama: 'Siti Fatimah ', Seminar: '', Waktu: '', Ruangan: '', Peserta: '', aktif: true  },
+      { no: '3', Nim: '', nama: 'Irmawati', Seminar: '', Waktu: '', Ruangan: '', Peserta: '', aktif: true },
+      { no: '4', Nim: '', nama: 'Muhammad Reval Wijaya ', Seminar: '', Waktu: '', Ruangan: '', Peserta: '', aktif: true  },
+    ];
+
+    // Fungsi untuk membuat baris tabel
+    function generateTableRow(pegawai) {
+      const row = document.createElement('tr');
+
+      // Nomer
+      const nomer = document.createElement('td');
+      nomer.textContent = pegawai.nomer;
+      row.appendChild(nomer);
+
+       // Nim
+       const nim = document.createElement('td');
+       nim.textContent = pegawai.nim;
+       row.appendChild(nim);
+
+      // Nama
+      const nama = document.createElement('td');
+      nama.textContent = pegawai.nama;
+      row.appendChild(nama);
+
+      // Seminar
+      const seminar = document.createElement('td');
+      seminar.textContent = pegawai.seminar;
+      row.appendChild(seminar);
+
+      // Waktu
+      const waktu = document.createElement('td');
+      waktu.textContent = pegawai.waktu;
+      row.appendChild(waktu);
+
+       // Peserta
+       const peserta = document.createElement('td');
+       peserta.textContent = pegawai.peserta;
+       row.appendChild(peserta);
+
+      // Aktif
+      const aktif = document.createElement('td');
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.checked = pegawai.aktif;
+      checkbox.enable = true;
+      aktif.appendChild(checkbox);
+      row.appendChild(aktif);
+
+      // Action
+      const action = document.createElement('td');
+      const editButton = document.createElement('button');
+      editButton.textContent = 'Edit';
+      editButton.addEventListener('click', function () {
+        editPegawai(pegawai);
+      });
+      action.appendChild(editButton);
+      row.appendChild(action);
+
+      return row;
+    }
+
+    // Fungsi untuk mengedit data pegawai
+    function editPegawai(pegawai) {
+      const newNo = prompt('Masukkan nomer urut :', pegawai.nomer);
+      const newNIM = prompt('Masukkan nim peserta:', pegawai.nim);
+      const newNama = prompt('Masukkan nama peserta:', pegawai.nama);
+      const newSeminar = prompt('Masukkan seminar baru:', pegawai.seminar);
+      const newWaktu = prompt('Masukkan waktu ', pegawai.waktu);
+      const newRuangan = prompt('Masukkan ruangan:', pegawai.ruangan);
+      const newPeserta = prompt('Masukkan peserta:', pegawai.peserta);
+      
+
+      // Memperbarui data
+      pegawai.nomer = newNo;
+      pegawai.nim = newNIM;
+      pegawai.nama = newNama;
+      pegawai.seminar = newSeminar;
+      pegawai.waktu = newWaktu;
+      pegawai.ruangan = newRuangan;
+      pegawai.peserta = newPeserta;
+
+      // Merender ulang tabel
+      renderPegawai();
+    }
+
+    // Fungsi untuk merender data pegawai dalam tabel
+    function renderPegawai() {
+      const pegawaiList = document.getElementById('pegawai-list');
+      pegawaiList.innerHTML = '';
+
+      pegawaiData.forEach((pegawai) => {
+        const row = generateTableRow(pegawai);
+        pegawaiList.appendChild(row);
+      });
+    }
+
+    renderPegawai();
+  });
+</script>
+  <style>
+    /* Add your styles here */
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    form {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+    }
+
+    input[type="submit"], input[type="reset"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover, input[type="reset"]:hover {
+        background-color: #45a049;
+    }
+</style>
+</head>
+<body class="hold-transition sidebar-mini">
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="index3.html" class="brand-link">
+      <img src="logo-removebg-preview.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">SISTA NF</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="dist/img/AdminLTELogo.png" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block">Kelompok 7</a>
+        </div>
+      </div>
+
+      <!-- SidebarSearch Form -->
+      <div class="form-inline">
+        <div class="input-group" data-widget="sidebar-search">
+          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-sidebar">
+              <i class="fas fa-search fa-fw"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Informasi Seminar
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="index.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Kelola Seminar</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="index2.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Sidang Mahasiswa</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="index3.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Peserta Seminar</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="login.html" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Logout
+                <span class="right badge badge-danger">New</span>
+              </p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h3>Form Seminar/Sidang Mahasiswa</h3>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="blank.html">Home</a></li>
+              <li class="breadcrumb-item"><a href="login.html">Logout</a></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+        <br>
+        <fieldset class="border p-4"> <legend class="w-auto">Form Daftar Seminar TA</legend>
+            <form action="proses.php" method="post">
+              <div class="row">
+                <div class="col-md-5"> <div class="form-group">
+                    <label for="nim">NIM</label>
+                    <input type="text" class="form-control" id="nim" name="nim" placeholder="Masukkan NIM">
+                  </div>
+                  <div class="form-group">
+                    <label for="nama">NAMA</label>
+                    <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan Nama">
+                  </div>
+                  <div class="form-group">
+                    <label for="prodi">Prodi</label>
+                    <select class="form-control" id="prodi" name="prodi">
+                      <option value="Sistem Informasi">Pilih Prodi</option>
+                      <option value="Sistem Informasi">Sistem Informasi</option>
+                      <option value="Teknik Informatika">Teknik Informatika</option>
+                      <option value="Manajemen Informatika">Busines Digital</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="tanggal-seminar">Tanggal Seminar</label>
+                    <input type="date" class="form-control" id="tanggal-seminar" name="tanggal-seminar">
+                  </div>
+                  <div class="form-group">
+                    <label for="jam-seminar">Jam Seminar</label>
+                    <input type="time" class="form-control" id="jam-seminar" name="jam-seminar">
+                  </div>
+                  <div class="form-group">
+                    <label for="seminar">Ruangan</label>
+                    <select class="form-control" id="seminar" name="seminar">
+                      <option value="Proposal">Pilih Ruangan</option>
+                      <option value="Proposal">Ruang B2 Auditorium</option>
+                      <option value="Hasil Penelitian">Ruang B1 Kampus Merdeka</option>
+                      <option value="Sidang">Kampus A Ruang 401-402</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-5 offset-md-2"> <div class="form-group">
+                    <label for="judul-ta">Judul TA</label>
+                    <input type="text" class="form-control" id="judul-ta" name="judul-ta" placeholder="Masukkan judul TA">
+                  </div>
+                  <div class="form-group">
+                    <label for="seminar">Seminar</label>
+                    <select class="form-control" id="seminar" name="seminar">
+                      <option value="Proposal">Pilih Seminar</option>
+                      <option value="Proposal">Proposal</option>
+                      <option value="Hasil Penelitian">Hasil Penelitian</option>
+                      <option value="Sidang">Sidang</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="seminar">Pembimbing</label>
+                    <select class="form-control" id="seminar" name="seminar">
+                      <option value="Proposal">Pilih Pembimbing</option>
+                      <option value="Proposal">Sirojul MunirSSI, M.KOM</option>
+                      <option value="Hasil Penelitian">Ahmad Rio M.SI</option>
+                      <option value="Sidang">Amalia Rahmah M.T</option>
+                    </select>
+                  </div>
+                    <div class="form-group">
+                        <label for="seminar">Penguji 1</label>
+                        <select class="form-control" id="seminar" name="seminar">
+                        <option value="Proposal">Pilih Penguji 1</option>
+                        <option value="Proposal">Sirojul MunirSSI, M.KOM</option>
+                        <option value="Hasil Penelitian">Ahmad Rio M.SI</option>
+                        <option value="Sidang">Amalia Rahmah M.T</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="seminar">Penguji 2</label>
+                        <select class="form-control" id="seminar" name="seminar">
+                        <option value="Proposal">Pilih Penguji 2</option>
+                        <option value="Proposal">Sirojul MunirSSI, M.KOM</option>
+                        <option value="Hasil Penelitian">Ahmad Rio M.SI</option>
+                        <option value="Sidang">Amalia Rahmah M.T</option>
+                        </select>
+                    </div>
+                     </div>
+                     </div>
+                     <button type="submit" class="btn btn-primary">Update</button>
+                     <button type="submit" class="btn btn-primary">Hapus</button>
+                    </form>
+        </fieldset>
+          
+
+       <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+</body>
+</html>
